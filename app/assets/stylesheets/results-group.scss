@@ -1,0 +1,13 @@
+.group {
+	padding: 20px;
+	padding-top: 10px;
+	margin-bottom: 10px;
+	border-radius: 3px;
+	box-shadow: 0 1px 3px rgba(0,0,0,.5);
+	background: white;
+
+	.group-title {
+		padding-bottom: 5px;
+		font: 500 20px/20px sans-serif;
+	}
+}

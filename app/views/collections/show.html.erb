@@ -1,0 +1,12 @@
+<div class="show-info">
+	<h1 class="show-title"><%= @collection.title %></h1>
+	<p class="show-subtitle"><%= @collection.release %> | <%= @collection.genres %></p>
+	<p class="show-description"><%= @collection.description %></p>
+</div>
+
+<% @seasons.each do |s, episodes| %>
+	<div class="group">
+		<h2 class="group-title">Season <%= s %></h2>
+		<%= render "shared/results", results: episodes %>
+	</div>
+<% end %>

@@ -1,0 +1,11 @@
+<div id="video">
+	<video controls poster="/assets/back.jpg" preload="none">
+	  <source src="/stream/<%= @video.id %>" type="video/mp4">
+	</video>
+
+	<div class="video-info">
+		<h1 class="video-title"><%= @video.title %></h1>
+		<p class="video-subtitle"><%= @video.release %> | <%= @video.genres %></p>
+		<p class="video-description"><%= @video.description %></p>
+	</div>
+</div>

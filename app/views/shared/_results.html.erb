@@ -1,0 +1,20 @@
+<div id="results">
+	<% results.each do |r| %>
+		<div class="result">
+			<a href="<%= r.link %>" class="result-image" >
+				<img src="/assets/back.jpg">
+			</a>
+
+			<p class="result-kind"><%= r.kind %></p>
+
+			<div class="result-info flexi-c r">
+				<div class="flexi-i">
+					<a href="<%= r.link %>" class="result-title"><%= r.title %></a>
+					<p class="result-subtitle"><%= r.release %> | <%= r.genres %></p>
+				</div>
+
+				<a href="<%= r.link %>" class="result-play"><i class="material-icons">play_arrow</i></a>
+			</div>
+		</div>
+	<% end %>
+</div>
