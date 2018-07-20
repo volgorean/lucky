@@ -8,6 +8,8 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 gem 'material_icons'
 gem 'send_file_with_range', git: 'https://github.com/tom-sherman/send_file_with_range.git', branch: 'buffer-size'
+gem 'administrate'
+gem 'administrate-field-active_storage'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use ActiveStorage variant
