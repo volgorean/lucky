@@ -5,10 +5,12 @@ Rails.application.routes.draw do
 
       root to: "collections#index"
     end
+  get "/movies", to: "videos#index"
 	get "/movies/:id", to: "videos#show"
+  get "/shows", to: "collections#index"
 	get "/shows/:id", to: "collections#show"
 	get "/shows/:c_id/episodes/:id", to: "videos#show"
 	get "/stream/:id", to: "videos#stream"
 
-	root "videos#index"
+	root "videos#home"
 end

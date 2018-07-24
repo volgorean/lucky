@@ -1,14 +1,29 @@
 class VideosController < ApplicationController
+	def home
+		@new = []
+		@action = []
+		@drama = []
+		@fantasy = []
+		
+		Video
+			.where(collection_id: nil)
+			.order("created_at DESC")
+			.limit(6)
+			.each { |v| @new << v }
+		Collection
+			.all
+			.order("created_at DESC")
+			.limit(6)
+			.each { |c| @new << c }
+		@new.sort_by!(&:created_at)
+
+		@action = @new
+		@drama = @new
+		@fantasy = @new
+	end
+
 	def index
-		@results = []
-		
-		Video.where(collection_id: nil).all.each do |v|
-			@results << v
-		end
-		
-		Collection.all.each do |c|
-			@results << c
-		end
+		@results = Video.where(collection_id: nil).order("title ASC").group_by{|u| u.title[0]}
 	end
 
 	def show

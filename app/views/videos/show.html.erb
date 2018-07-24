@@ -1,5 +1,5 @@
 <div id="video">
-	<video controls poster="<%= url_for @video.thumbnail %>" preload="none">
+	<video controls poster="<%= url_for @video.thumbnail_image %>" preload="none">
 	  <source src="/stream/<%= @video.id %>" type="<%= @video.file.content_type %>">
 	</video>
 
