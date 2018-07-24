@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PMedia | Login</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+  </head>
+
+  <body>
+    <div class="middle">
+      <div id="login" ">
+        <%= form_tag("/login", method: "POST") do %>
+          <h1>Login</h1>
+          
+          <label>Username</label>
+          <input type="text" name="username" placeholder="bilboBaggins" required></input>
+          
+          <label>Password</label>
+          <input type="password" name="password" placeholder="●●●●●●●●" required></input>
+
+          <div class="flexi-c rr">
+            <input class="login-button" type="submit" value="Login"></input>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </body>
+</html>

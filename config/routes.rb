@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
   namespace :admin do
-      resources :collections
-      resources :videos
+    resources :collections
+    resources :videos
 
-      root to: "collections#index"
-    end
+    root to: "collections#index"
+  end
+
+  get "/login", to: "sessions#login_page", as: :login_page
+  post "/login", to: "sessions#login", as: :login
+
   get "/movies", to: "videos#index"
 	get "/movies/:id", to: "videos#show"
   get "/shows", to: "collections#index"

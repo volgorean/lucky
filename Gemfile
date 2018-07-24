@@ -11,6 +11,7 @@ gem 'send_file_with_range', git: 'https://github.com/tom-sherman/send_file_with_
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'administrate'
 gem 'administrate-field-active_storage'
+gem 'dotenv-rails'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use ActiveStorage variant
