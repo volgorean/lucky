@@ -9,7 +9,8 @@ class VideoDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     collection: Field::BelongsTo,
-    file: Field::ActiveStorage,
+    file: Field::ActiveStorage.with_options({url_only: true}),
+    thumbnail: Field::ActiveStorage,
     id: Field::Number,
     title: Field::String,
     description: Field::Text,
@@ -46,6 +47,7 @@ class VideoDashboard < Administrate::BaseDashboard
     :created_at,
     :updated_at,
     :collection,
+    :thumbnail,
     :file,
   ].freeze
 
@@ -55,6 +57,7 @@ class VideoDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :collection,
     :file,
+    :thumbnail,
     :title,
     :description,
     :season_id,
@@ -63,10 +66,7 @@ class VideoDashboard < Administrate::BaseDashboard
     :release,
   ].freeze
 
-  # Overwrite this method to customize how videos are displayed
-  # across all pages of the admin dashboard.
-  #
-  # def display_resource(video)
-  #   "Video ##{video.id}"
-  # end
+  def display_resource(video)
+    video.title
+  end
 end

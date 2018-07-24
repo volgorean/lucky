@@ -2,6 +2,7 @@ class Video < ApplicationRecord
 	belongs_to :collection, optional: true
 	validates :title, presence: true
 	has_one_attached :file
+	has_one_attached :thumbnail
 
 	def kind
 		if collection_id
@@ -25,5 +26,13 @@ class Video < ApplicationRecord
 
 	def runtime
 		time_ago_in_words(runtime_s.seconds.from_now)
+	end
+
+	def thumbnail_image
+		if self.thumbnail.attached?
+			self.thumbnail
+		else
+			"/assets/defaultThumb.jpg"
+		end
 	end
 end

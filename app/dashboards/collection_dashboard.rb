@@ -12,6 +12,7 @@ class CollectionDashboard < Administrate::BaseDashboard
     id: Field::Number,
     title: Field::String,
     description: Field::Text,
+    thumbnail: Field::ActiveStorage,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -34,6 +35,7 @@ class CollectionDashboard < Administrate::BaseDashboard
     :id,
     :title,
     :description,
+    :thumbnail,
     :created_at,
     :updated_at,
     :videos,
@@ -46,12 +48,10 @@ class CollectionDashboard < Administrate::BaseDashboard
     :videos,
     :title,
     :description,
+    :thumbnail,
   ].freeze
 
-  # Overwrite this method to customize how collections are displayed
-  # across all pages of the admin dashboard.
-  #
-  # def display_resource(collection)
-  #   "Collection ##{collection.id}"
-  # end
+  def display_resource(collection)
+    collection.title
+  end
 end

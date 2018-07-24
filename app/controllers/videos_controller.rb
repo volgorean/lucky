@@ -24,6 +24,6 @@ class VideosController < ApplicationController
 			range: true,
 			buffer_size: 500_000,
 			disposition: "inline",
-			type: "video/mp4")
+			type: video.file.content_type)
 	end
 end

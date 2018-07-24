@@ -1,6 +1,6 @@
 <div id="video">
-	<video controls poster="/assets/back.jpg" preload="none">
-	  <source src="/stream/<%= @video.id %>" type="video/mp4">
+	<video controls poster="<%= url_for @video.thumbnail %>" preload="none">
+	  <source src="/stream/<%= @video.id %>" type="<%= @video.file.content_type %>">
 	</video>
 
 	<div class="video-info">

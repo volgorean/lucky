@@ -1,13 +1,41 @@
 .group {
-	padding: 20px;
-	padding-top: 10px;
+	padding: 5px;
 	margin-bottom: 10px;
 	border-radius: 3px;
 	box-shadow: 0 1px 3px rgba(0,0,0,.5);
 	background: white;
 
 	.group-title {
-		padding-bottom: 5px;
-		font: 500 20px/20px sans-serif;
+		margin-bottom: 5px;
+		margin-right: auto;
+
+		flex: 0 0 20px;
+		height: 20px;
+		padding: 0 10px;
+		text-align: center;
+		white-space: nowrap;
+		font: 500 14px/20px sans-serif;
+		border-radius: 20px;
+		box-shadow: 0 1px 3px rgba(0,0,0,.5);
+		background: black;
+		color: white;
+	}
+	.group-button {
+		flex: 0 0 20px;
+		height: 20px;
+		padding: 0;
+		margin-left: 5px;
+		text-align: center;
+		border-radius: 20px;
+		box-shadow: 0 1px 3px rgba(0,0,0,.5);
+		background: black;
+
+		i {
+			height: 20px !important;
+			line-height: 20px !important;
+			font-size: 12px !important;
+			font-weight: 800;
+			color: white;
+		}
 	}
 }
