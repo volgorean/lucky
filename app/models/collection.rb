@@ -2,17 +2,10 @@ class Collection < ApplicationRecord
 	has_many :videos, dependent: :destroy
 	validates :title, presence: true
 	has_one_attached :thumbnail
-	
+	acts_as_taggable
+
 	def kind
 		"TV SHOW"
-	end
-
-	def release
-		"2008-2012"
-	end
-
-	def genres
-		"Drama, Action"
 	end
 
 	def link

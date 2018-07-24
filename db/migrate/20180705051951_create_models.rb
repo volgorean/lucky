@@ -3,8 +3,7 @@ class CreateModels < ActiveRecord::Migration[5.2]
   	create_table :collections do |t|
   		t.string :title
   		t.text :description
-
-  		# image
+      t.string :release
 
   		t.timestamps
     end
@@ -13,14 +12,11 @@ class CreateModels < ActiveRecord::Migration[5.2]
     	t.string :title
     	t.text :description
 
-    	# image
-    	# video
-
     	t.integer :collection_id
     	t.integer :season_id
     	t.integer :season_pos
     	t.integer :runtime_s
-    	t.integer :release
+    	t.string :release
 
     	t.timestamps
     end

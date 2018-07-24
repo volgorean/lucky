@@ -17,7 +17,7 @@ class VideoDashboard < Administrate::BaseDashboard
     season_id: Field::Number,
     season_pos: Field::Number,
     runtime_s: Field::Number,
-    release: Field::Number,
+    release: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze

@@ -13,6 +13,7 @@ class CollectionDashboard < Administrate::BaseDashboard
     title: Field::String,
     description: Field::Text,
     thumbnail: Field::ActiveStorage,
+    release: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -25,6 +26,7 @@ class CollectionDashboard < Administrate::BaseDashboard
   COLLECTION_ATTRIBUTES = [
     :id,
     :title,
+    :release,
     :videos,
     :description,
   ].freeze
@@ -34,6 +36,7 @@ class CollectionDashboard < Administrate::BaseDashboard
   SHOW_PAGE_ATTRIBUTES = [
     :id,
     :title,
+    :release,
     :description,
     :thumbnail,
     :created_at,
@@ -47,6 +50,7 @@ class CollectionDashboard < Administrate::BaseDashboard
   FORM_ATTRIBUTES = [
     :videos,
     :title,
+    :release,
     :description,
     :thumbnail,
   ].freeze

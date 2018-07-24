@@ -3,6 +3,7 @@ class Video < ApplicationRecord
 	validates :title, presence: true
 	has_one_attached :file
 	has_one_attached :thumbnail
+	acts_as_taggable
 
 	def kind
 		if collection_id
@@ -10,10 +11,6 @@ class Video < ApplicationRecord
 		else
 			"MOVIE"
 		end
-	end
-
-	def genres
-		"Sci-Fi"
 	end
 
 	def link
