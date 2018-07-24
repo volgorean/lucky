@@ -18,6 +18,7 @@ class VideoDashboard < Administrate::BaseDashboard
     season_pos: Field::Number,
     runtime_s: Field::Number,
     release: Field::String,
+    tag_list: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -32,6 +33,7 @@ class VideoDashboard < Administrate::BaseDashboard
     :title,
     :collection,
     :release,
+    :tag_list
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -47,6 +49,7 @@ class VideoDashboard < Administrate::BaseDashboard
     :created_at,
     :updated_at,
     :collection,
+    :tag_list,
     :thumbnail,
     :file,
   ].freeze
@@ -60,6 +63,7 @@ class VideoDashboard < Administrate::BaseDashboard
     :thumbnail,
     :title,
     :description,
+    :tag_list,
     :season_id,
     :season_pos,
     :runtime_s,
