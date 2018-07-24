@@ -7,7 +7,7 @@ default: &default
 development:
   <<: *default
   host: "localhost"
-  database: "pMedia_development"
+  database: "lucky_development"
   username: "peter"
 
 production:
