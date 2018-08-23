@@ -1,20 +1,9 @@
 <div id="results">
-	<% results.each do |r| %>
-		<div class="result">
+	<% results.each_with_index do |r, i| %>
+		<div class="result<%= ' featured' if i==1&&results.length>=8 %>">
 			<a href="<%= r.link %>" class="result-image" >
-				<img src="<%= url_for(r.thumbnail_image) %>">
+				<img src="<%= url_for(r.poster_image) %>">
 			</a>
-
-			<p class="result-kind"><%= r.kind %></p>
-
-			<div class="result-info flexi-c r">
-				<div class="flexi-i">
-					<a href="<%= r.link %>" class="result-title"><%= r.title %></a>
-					<p class="result-subtitle"><%= r.release %> | <%= r.tag_list %></p>
-				</div>
-
-				<a href="<%= r.link %>" class="result-play"><i class="material-icons">play_arrow</i></a>
-			</div>
 		</div>
 	<% end %>
 </div>

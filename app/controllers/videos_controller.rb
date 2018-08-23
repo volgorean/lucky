@@ -3,27 +3,62 @@ class VideosController < ApplicationController
 		@new = []
 		@action = []
 		@drama = []
-		@fantasy = []
+		@comedy = []
 		
 		Video
-			.where(collection_id: nil)
-			.order("created_at DESC")
-			.limit(6)
+			.where(show_id: nil)
+			.order("release DESC")
+			.limit(9)
 			.each { |v| @new << v }
-		Collection
+		Show
 			.all
-			.order("created_at DESC")
-			.limit(6)
+			.order("release DESC")
+			.limit(9)
 			.each { |c| @new << c }
-		@new.sort_by!(&:created_at)
+		@new.sort_by!(&:release)
 
-		@action = @new
-		@drama = @new
-		@fantasy = @new
+		Video
+			.tagged_with("Action")
+			.where(show_id: nil)
+			.order("release DESC")
+			.limit(9)
+			.each { |v| @action << v }
+		Show
+			.tagged_with("Action")
+			.order("release DESC")
+			.limit(9)
+			.each { |c| @action << c }
+		@action.sort_by!(&:release)
+
+		Video
+			.tagged_with("Drama")
+			.where(show_id: nil)
+			.order("release DESC")
+			.limit(9)
+			.each { |v| @drama << v }
+		Show
+			.tagged_with("Drama")
+			.order("release DESC")
+			.limit(9)
+			.each { |c| @drama << c }
+		@drama.sort_by!(&:release)
+
+		Video
+			.tagged_with("Comedy")
+			.where(show_id: nil)
+			.order("release DESC")
+			.limit(9)
+			.each { |v| @comedy << v }
+		Show
+			.tagged_with("Comedy")
+			.order("release DESC")
+			.limit(9)
+			.each { |c| @comedy << c }
+		@comedy.sort_by!(&:release)
 	end
 
 	def index
-		@results = Video.where(collection_id: nil).order("title ASC").group_by{|u| u.title[0]}
+		@results = Video.where(show_id: nil).order("title ASC").group_by{|u| u.title[0]}
 	end
 
 	def show
@@ -32,7 +67,7 @@ class VideosController < ApplicationController
 
 	def stream
 		video = Video.find(params[:id])
-		path = Rails.root.to_s + '/storage/vg/Mr/' + video.file.blob.key
+		path = ActiveStorage::Blob.service.send(:path_for, video.file.blob.key)
 		
 		send_file(
 			path,

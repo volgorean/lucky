@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   namespace :admin do
-    resources :collections
+    resources :shows
     resources :videos
 
-    root to: "collections#index"
+    root to: "shows#index"
   end
 
   get "/login", to: "sessions#login_page", as: :login_page
@@ -11,8 +11,8 @@ Rails.application.routes.draw do
 
   get "/movies", to: "videos#index"
 	get "/movies/:id", to: "videos#show"
-  get "/shows", to: "collections#index"
-	get "/shows/:id", to: "collections#show"
+  get "/shows", to: "shows#index"
+	get "/shows/:id", to: "shows#show"
 	get "/shows/:c_id/episodes/:id", to: "videos#show"
 	get "/stream/:id", to: "videos#stream"
 

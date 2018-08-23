@@ -1,6 +1,6 @@
 class CreateModels < ActiveRecord::Migration[5.2]
   def change
-  	create_table :collections do |t|
+  	create_table :shows do |t|
   		t.string :title
   		t.text :description
       t.string :release
@@ -8,13 +8,23 @@ class CreateModels < ActiveRecord::Migration[5.2]
   		t.timestamps
     end
 
+    create_table :seasons do |t|
+      t.string :title
+      t.text :description
+      
+      t.integer :show_id
+      t.integer :season_number
+
+      t.timestamps
+    end
+
     create_table :videos do |t|
     	t.string :title
     	t.text :description
 
-    	t.integer :collection_id
+    	t.integer :show_id
     	t.integer :season_id
-    	t.integer :season_pos
+    	t.integer :episode_number
     	t.integer :runtime_s
     	t.string :release
 

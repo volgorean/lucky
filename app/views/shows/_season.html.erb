@@ -1,0 +1,19 @@
+<div class="show-info">
+	<h1 class="show-title"><%= season.title %></h1>
+	<p class="show-subtitle"><%= season.release %> | <%= episodes.length %> episodes</p>
+	<p class="show-description"><%= season.description %></p>
+
+	<% episodes.each do |e| %>
+		<a href="<%= e.link %>" class="episode-info flexi-c r">
+			<div class="episode-preview">
+				<img src="<%= url_for(e.cover_image) %>">
+			</div>
+
+			<div class="flexi-i">
+				<h1 class="episode-title"><%= e.title %></h1>
+				<p class="episode-subtitle"></p>
+				<p class="episode-description"><%= e.description %></p>
+			</div>
+		</a>
+	<% end %>
+</div>

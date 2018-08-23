@@ -1,0 +1,15 @@
+<div class="show-info flexi-c r">
+	<div class="show-poster">
+		<img src="<%= url_for(@show.poster_image) %>">
+	</div>
+
+	<div class="flexi-i">
+		<h1 class="show-title"><%= @show.title %></h1>
+		<p class="show-subtitle"><%= @show.release %> | <%= @show.tag_list %></p>
+		<p class="show-description"><%= @show.description %></p>
+	</div>
+</div>
+
+<% @seasons.each do |s| %>
+	<%= render "season", season: s, episodes: (@episodes[s.id] || []) %>
+<% end %>

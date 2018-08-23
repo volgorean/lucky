@@ -36,7 +36,16 @@ ActiveRecord::Schema.define(version: 2018_07_24_190342) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "collections", force: :cascade do |t|
+  create_table "seasons", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.integer "show_id"
+    t.integer "season_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shows", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "release"
@@ -72,9 +81,9 @@ ActiveRecord::Schema.define(version: 2018_07_24_190342) do
   create_table "videos", force: :cascade do |t|
     t.string "title"
     t.text "description"
-    t.integer "collection_id"
+    t.integer "show_id"
     t.integer "season_id"
-    t.integer "season_pos"
+    t.integer "episode_number"
     t.integer "runtime_s"
     t.string "release"
     t.datetime "created_at", null: false

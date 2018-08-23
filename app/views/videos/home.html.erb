@@ -1,11 +1,11 @@
 <div class="group">
 	<div class="flexi-c r">
-		<h2 class="group-title">Just Added</h2>
+		<h2 class="group-title">New Releases</h2>
 		<a href="#" class="group-button"><i class="material-icons">chevron_left</i></a>
 		<a href="#" class="group-button"><i class="material-icons">chevron_right</i></a>
 	</div>
 
-	<%= render "shared/results", results: @new%>
+	<%= render "shared/results", results: @new[0..8] %>
 </div>
 
 <div class="group">
@@ -15,7 +15,7 @@
 		<a href="#" class="group-button"><i class="material-icons">chevron_right</i></a>
 	</div>
 
-	<%= render "shared/results", results: @action %>
+	<%= render "shared/results", results: @action[0..5] %>
 </div>
 
 <div class="group">
@@ -25,5 +25,15 @@
 		<a href="#" class="group-button"><i class="material-icons">chevron_right</i></a>
 	</div>
 
-	<%= render "shared/results", results: @drama %>
+	<%= render "shared/results", results: @drama[0..8] %>
+</div>
+
+<div class="group">
+	<div class="flexi-c r">
+		<h2 class="group-title">Comedy</h2>
+		<a href="#" class="group-button"><i class="material-icons">chevron_left</i></a>
+		<a href="#" class="group-button"><i class="material-icons">chevron_right</i></a>
+	</div>
+
+	<%= render "shared/results", results: @comedy[0..5] %>
 </div>
