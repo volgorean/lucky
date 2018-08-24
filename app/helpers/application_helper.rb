@@ -1,18 +1,19 @@
 module ApplicationHelper
-	def authed
-		return false unless session[:authed]
-		session[:authed]
-	end
+	attr_accessor :current_user
+  
+  def authenticated?
+    unless current_user
+      render json: {error: "Failed to authenticate!"}.to_json, status: 401
+    end
+  end
 
-	def authenticate
-	  redirect_to "/login" unless authed
-	end
+  def current_user
+    header = request.headers['Authorization']
 
-	def login_cred(user, pass)
-		cu = ENV["ADMIN_USERNAME"] || "user"
-		cp = ENV["ADMIN_PASSWORD"] || "pass"
-		
-		return true if cu == user && cp == pass
-		return false
-	end
+    return nil unless header && header.match(/^Bearer /)
+    token = header.gsub(/^Bearer /, '')
+    id = JsonWebToken.decode(token).dig(0, "user_id")
+
+    @current_user ||= User.find_by(id: id)
+  end
 end

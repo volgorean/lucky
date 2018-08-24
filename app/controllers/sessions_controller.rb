@@ -1,15 +1,21 @@
 class SessionsController < ApplicationController
-	def login_page
-		redirect_to "/admin" if authed
-		render layout: false
-	end
+	before_action :authenticated?, except: [:login]
 
 	def login
-		if login_cred(params[:username], params[:password])
-			session[:authed] = true
-			redirect_to "/admin"
-		else
-			redirect_to "/login"
-		end
-	end
+    user = User.find_by(email: params[:email])
+
+    # password is type BCrypt::Password
+    if user && user.password == params[:password]
+      render json: {
+        user: {
+          token: JsonWebToken.encode({
+            user_id: user.id,
+            created_at: Time.now.to_i
+          })
+        }
+      }.to_json
+    else
+      render json: {error: "Failed to authenticate!"}.to_json, status: 401
+    end
+  end
 end

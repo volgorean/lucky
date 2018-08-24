@@ -1,79 +1,66 @@
 class VideosController < ApplicationController
-	def home
-		@new = []
-		@action = []
-		@drama = []
-		@comedy = []
-		
-		Video
+	# stream exception to be removed with stream endpoint when adding file server.
+	# Issue exists bc using JWT auth not session and stream is src.
+	# Lets say its security by obscurity for the moment. works for 'private' gists.
+	before_action :authenticated?, except: :stream
+	
+	def index
+		vids = Video
+			.includes(:tags)
 			.where(show_id: nil)
-			.order("release DESC")
-			.limit(9)
-			.each { |v| @new << v }
-		Show
-			.all
-			.order("release DESC")
-			.limit(9)
-			.each { |c| @new << c }
-		@new.sort_by!(&:release)
-
-		Video
-			.tagged_with("Action")
-			.where(show_id: nil)
-			.order("release DESC")
-			.limit(9)
-			.each { |v| @action << v }
-		Show
-			.tagged_with("Action")
-			.order("release DESC")
-			.limit(9)
-			.each { |c| @action << c }
-		@action.sort_by!(&:release)
-
-		Video
-			.tagged_with("Drama")
-			.where(show_id: nil)
-			.order("release DESC")
-			.limit(9)
-			.each { |v| @drama << v }
-		Show
-			.tagged_with("Drama")
-			.order("release DESC")
-			.limit(9)
-			.each { |c| @drama << c }
-		@drama.sort_by!(&:release)
-
-		Video
-			.tagged_with("Comedy")
-			.where(show_id: nil)
-			.order("release DESC")
-			.limit(9)
-			.each { |v| @comedy << v }
-		Show
-			.tagged_with("Comedy")
-			.order("release DESC")
-			.limit(9)
-			.each { |c| @comedy << c }
-		@comedy.sort_by!(&:release)
+			.order("title ASC")
+			.map(&:as_hash)
+		render json: {
+			results: vids
+		}.to_json
 	end
 
-	def index
-		@results = Video.where(show_id: nil).order("title ASC").group_by{|u| u.title[0]}
+	def search
+		v = Video
+			.includes(:tags)
+			.where(show_id: nil)
+			.with_term(params["search"])
+			.with_genre(params["genre"])
+			.order("release DESC")
+
+		s = Show
+			.includes(:tags)
+			.all
+			.with_term(params["search"])
+			.with_genre(params["genre"])
+			.order("release DESC")
+
+		render json: {
+			results: (v+s).sort_by!(&:release).map(&:as_hash)
+		}.to_json
 	end
 
 	def show
-		@video = Video.find(params[:id])
+		vid = Video.find(params["id"])
+		render json: {
+			result: vid.as_hash
+		}.to_json
 	end
 
+	# to be removed with the addition of a file server.
 	def stream
 		video = Video.find(params[:id])
-		path = ActiveStorage::Blob.service.send(:path_for, video.file.blob.key)
-		
+
+		if video.file.attached?
+			file_path = ActiveStorage::Blob.service.send(:path_for, video.file.blob.key)
+			file_type = video.file.content_type
+		else
+			file_path = Rails.root.to_s + "/public/defaultVideo.mp4"
+			file_type = "video/mp4"
+		end
+
+		# rails doesnt support file partial requests by default
+		# gem: send_file_with_range
 		send_file(
-			path,
+			file_path,
 			range: true,
 			buffer_size: 500_000,
 			disposition: "inline",
-			type: video.file.content_type)
+			type: file_type)
 	end
 end

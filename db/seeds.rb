@@ -1,3 +1,8 @@
+User.create(
+  email: "volgorean@gmail.com",
+  password_hash: BCrypt::Password.create("123456")
+)
+
 # collections = Collection.create([
 # 	{
 # 		title: "Avatar the last airbender",

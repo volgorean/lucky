@@ -1,4 +1,7 @@
 class Video < ApplicationRecord
+	include ActionView::Helpers::DateHelper
+	include Rails.application.routes.url_helpers
+
 	belongs_to :show, optional: true
 	belongs_to :season, optional: true
 	validates :title, presence: true
@@ -7,49 +10,53 @@ class Video < ApplicationRecord
 	has_one_attached :cover
 	acts_as_taggable
 
-	def kind
-		if show_id
-			"EPISODE"
+	def as_hash
+		{
+			id: id,
+			title: title,
+			description: description,
+			genres: genres,
+			kind: (show_id ? "EPISODE" : "MOVIE"),
+			release: release,
+			runtime: time_ago_in_words(runtime_s.seconds.from_now),
+			cover_image: cover_url,
+			poster_image: poster_url,
+			content_path: "/stream/#{id}",
+			content_type: (file.attached? ? file.content_type : "video/mp4")
+		}
+	end
+
+	def cover_url
+		if cover.attached?
+			url_for cover
 		else
-			"MOVIE"
+			"/public/defaultCover.jpg"
 		end
 	end
 
-	def link
-		if show_id
-			"/shows/#{show_id}/episodes/#{id}"
+	def poster_url
+		if poster.attached?
+			url_for poster
+		elsif show_id
+			self.season.poster_url
 		else
-			"/movies/#{id}"
+			"/public/defaultPoster.jpg"
 		end
 	end
 
-	def runtime
-		time_ago_in_words(runtime_s.seconds.from_now)
+	def genres
+		show_id ? self.show.tag_list : tag_list
 	end
 
-	def cover_image
-		if self.cover.attached?
-			self.cover
-		else
-			"/assets/defaultCover.jpg"
-		end
+	def self.with_genre(val)
+		val ? self.tagged_with(val) : self
 	end
 
-	def poster_image
-		if self.poster.attached?
-			self.poster
-		elsif self.season_id
-			self.season.poster_image
+	def self.with_term(val)
+		if val
+			self.where("title LIKE :search OR description LIKE :search", search: "%#{val}%")
 		else
-			"/assets/defaultPoster.jpg"
-		end
-	end
-
-	def file_content_type
-		if self.file.attached?
-			self.file.content_type
-		else
-			"mp4"
+			self
 		end
 	end
 end

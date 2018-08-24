@@ -1,9 +1,0 @@
-<div id="results">
-	<% results.each_with_index do |r, i| %>
-		<div class="result<%= ' featured' if i==1&&results.length>=8 %>">
-			<a href="<%= r.link %>" class="result-image" >
-				<img src="<%= url_for(r.poster_image) %>">
-			</a>
-		</div>
-	<% end %>
-</div>
