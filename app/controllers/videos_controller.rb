@@ -1,7 +1,6 @@
 class VideosController < ApplicationController
 	# stream exception to be removed with stream endpoint when adding file server.
 	# Issue exists bc using JWT auth not session and stream is src.
-	# Lets say its security by obscurity for the moment. works for 'private' gists.
 	before_action :authenticated?, except: :stream
 	
 	def index

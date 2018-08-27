@@ -7,5 +7,5 @@ Rails.application.routes.draw do
   get "/shows", to: "shows#index"
 	get "/shows/:id", to: "shows#show"
 	get "/shows/:c_id/episodes/:id", to: "videos#show"
-	root "videos#home"
+  root "videos#home"
 end

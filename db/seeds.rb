@@ -12,7 +12,7 @@ User.create(
 # 	}
 # ])
 
-Dir.glob("/Users/peter/Web/lucky_meta/movies/*").each do |mov|
+Dir.glob(Rails.root.join("..", "lucky_meta/movies/*")).each do |mov|
 	meta = YAML.load_file("#{mov}/meta.yaml")
 	puts mov
 
@@ -27,7 +27,7 @@ Dir.glob("/Users/peter/Web/lucky_meta/movies/*").each do |mov|
 	v.cover.attach(io: File.open("#{mov}/backdrop.jpg"), filename: "backdrop.jpg") if File.file?("#{mov}/backdrop.jpg")
 end
 
-Dir.glob("/Users/peter/Web/lucky_meta/shows/*").each do |show|
+Dir.glob(Rails.root.join("..", "lucky_meta/shows/*")).each do |show|
 	meta = YAML.load_file("#{show}/meta.yaml")
 
 	c = Show.create!({
