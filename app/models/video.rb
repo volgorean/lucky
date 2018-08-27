@@ -16,7 +16,7 @@ class Video < ApplicationRecord
 			title: title,
 			description: description,
 			genres: genres,
-			kind: (show_id ? "EPISODE" : "MOVIE"),
+			kind: kind,
 			release: release,
 			runtime: time_ago_in_words(runtime_s.seconds.from_now),
 			cover_image: cover_url,
@@ -27,36 +27,35 @@ class Video < ApplicationRecord
 	end
 
 	def cover_url
-		if cover.attached?
-			url_for cover
-		else
-			"/public/defaultCover.jpg"
-		end
+		return "/public/defaultCover.jpg" if !cover.attached?
+		url_for cover
 	end
 
 	def poster_url
-		if poster.attached?
-			url_for poster
-		elsif show_id
-			self.season.poster_url
-		else
-			"/public/defaultPoster.jpg"
+		if !poster.attached?
+			return self.season.poster_url if show_id
+			return "/public/defaultPoster.jpg"
 		end
+
+		url_for poster
+	end
+
+	def kind
+		(show_id ? "EPISODE" : "MOVIE")
 	end
 
 	def genres
-		show_id ? self.show.tag_list : tag_list
+		return self.show.tag_list if show_id
+		tag_list
 	end
 
 	def self.with_genre(val)
-		val ? self.tagged_with(val) : self
+		return self if val.nil?
+		self.tagged_with(val)
 	end
 
 	def self.with_term(val)
-		if val
-			self.where("title LIKE :search OR description LIKE :search", search: "%#{val}%")
-		else
-			self
-		end
+		return self if val.nil?
+		self.where("title LIKE :search OR description LIKE :search", search: "%#{val}%")
 	end
 end

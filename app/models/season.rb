@@ -10,7 +10,6 @@ class Season < ApplicationRecord
 			id: id,
 			title: title,
 			description: description,
-			release: "2009",
 			kind: "SEASON",
 			show_id: show_id,
 			season_number: season_number,
@@ -19,10 +18,7 @@ class Season < ApplicationRecord
 	end
 
 	def poster_url
-		if poster.attached?
-			url_for poster
-		else
-			"/public/defaultPoster.jpg"
-		end
+		return "/public/defaultPoster.jpg" if poster.attached?
+		url_for poster
 	end
 end
