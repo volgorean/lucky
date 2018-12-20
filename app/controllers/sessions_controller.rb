@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
 	before_action :authenticated?, except: [:login]
 
-	def login
+  def login
     user = User.find_by(email: params[:email])
 
     # password is type BCrypt::Password

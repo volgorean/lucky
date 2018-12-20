@@ -13,6 +13,7 @@ class Show < ApplicationRecord
 			id: id,
 			title: title,
 			description: description,
+			genres: tag_list,
 			kind: "SHOW",
 			cover_image: cover_url,
 			poster_image: poster_url,
@@ -20,30 +21,22 @@ class Show < ApplicationRecord
 	end
 
 	def cover_url
-		if cover.attached?
-			url_for cover
-		else
-			"/public/defaultCover.jpg"
-		end
+		return "/public/defaultCover.jpg" if !cover.attached?
+		url_for cover
 	end
 
 	def poster_url
-		if poster.attached?
-			url_for poster
-		else
-			"/public/defaultPoster.jpg"
-		end
+		return "/public/defaultPoster.jpg" if !poster.attached?
+		url_for poster
 	end
 
 	def self.with_genre(val)
-		val ? self.tagged_with(val) : self
+		return self if val.nil?
+		self.tagged_with(val)
 	end
 
 	def self.with_term(val)
-		if val
-			self.where("title LIKE :search OR description LIKE :search", search: "%#{val}%")
-		else
-			self
-		end
+		return self if val.nil?
+		self.where("title LIKE :search OR description LIKE :search", search: "%#{val}%")
 	end
 end
