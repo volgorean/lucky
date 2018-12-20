@@ -4,6 +4,13 @@ default: &default
   pool: 25
   timeout: 5000
 
+test:
+  <<: *default
+  host: "localhost"
+  database: "lucky_test"
+  username: "peter"
+
+
 development:
   <<: *default
   host: "localhost"

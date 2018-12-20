@@ -18,9 +18,9 @@ class VideosController < ApplicationController
 	def search
 		v = Video
 			.includes(:tags)
-			.where(show_id: nil)
 			.with_term(params["search"])
 			.with_genre(params["genre"])
+			.where(show_id: nil)
 			.order("release DESC")
 
 		s = Show

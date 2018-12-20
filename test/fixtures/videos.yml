@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+the_hobbit:
+  title: The Hobbit
+  description: In a hole in the ground there lived a hobbit...
+  runtime_s: 10920 # 3 hours 2 minutes
+  release: 2012-12-12
+
+avatar_1:
+  season: avatar_book_one
+  show: avatar
+  episode_number: 1
+  title: The Boy in the Iceberg
+  description: Bla bla bla something...
+  runtime_s: 1200 # 20 minutes
+  release: 2012-12-12
+
+avatar_2:
+  season: avatar_book_one
+  show: avatar
+  episode_number: 1
+  title: The Avatar Returns
+  description: Bla bla bla something...
+  runtime_s: 1200 # 20 minutes
+  release: 2012-12-12

@@ -1,6 +1,6 @@
 class Season < ApplicationRecord
 	include Rails.application.routes.url_helpers
-
+	belongs_to :show, optional: true
 	has_many :videos, dependent: :destroy
 	validates :title, presence: true
 	has_one_attached :poster

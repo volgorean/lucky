@@ -1,0 +1,5 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+bilbo:
+  email: bilbo@shire.gov
+  password_hash: <%= BCrypt::Password.create("hunter1") %>
